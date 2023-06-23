@@ -1,0 +1,71 @@
+﻿@{
+    ViewBag.Title = "Liquidaciones";
+}
+
+<div class="row">
+    <div class="col-md-5">
+        <h2>Subsidios por capacidades diferentes</h2>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <label class="control-label">Filtrar por Mes</label>
+            <select size="1" id="Mes" name="Mes" style="width:100%;" required>
+                <option value="">Todos</option>
+                <option value="1">01</option>
+                <option value="2">02</option>
+                <option value="3">03</option>
+                <option value="4">04</option>
+                <option value="5">05</option>
+                <option value="6">06</option>
+                <option value="7">07</option>
+                <option value="8">08</option>
+                <option value="9">09</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <label class="control-label">Año</label>
+            <select size="1" id="Anio" name="Anio" style="width:100%;" required>
+                <option value="">Todos</option>
+                @for (int a = DateTime.Now.Year; a >= 2018; a--)
+                {
+                    <option value="@a">@a</option>
+                }
+            </select>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <p>
+            <a href="/Liquidacion/Create" class="btn btn-sm btn-success" style="float:right;">Nuevo</a>
+            <a id="btnImprimir" class="btn btn-sm btn-primary" style="float:right; margin-right:5px">Imprimir</a>
+        </p>
+    </div>
+</div>
+
+<br /><br />
+
+<table width="100%" id="tbl" class="table table-condensed">
+    <thead>
+        <tr>
+            <th>
+                Mes
+            </th>
+            <th>
+                Año
+            </th>
+            <th>
+                Total
+            </th>
+            <th>
+                Estado
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+</table>
+
+<script src="~/Resources/js/Liquidacion/index.min.js"></script>

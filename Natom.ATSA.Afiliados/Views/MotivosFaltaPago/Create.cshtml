@@ -1,0 +1,35 @@
+﻿@model Natom.ATSA.Afiliados.Models.MotivoFaltaPago
+
+@{
+    ViewBag.Title = "Nuevo";
+}
+
+<h2>Nuevo</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Motivo de falta de pago</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div>
+            <div class="col-md-offset-2 col-md-8">
+                <input type="button" class="btn btn-danger" value="Cancelar" onclick="location.href='~/MotivosFaltaPago'" />
+                &nbsp;
+                <input type="button" value="Crear" class="btn btn-success" onclick="Grabar()" />
+            </div>
+        </div>
+    </div>
+}
+
+<script src="~/Resources/js/MotivosFaltaPago/create.min.js"></script>

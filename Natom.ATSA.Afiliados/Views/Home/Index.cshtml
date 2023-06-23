@@ -1,0 +1,280 @@
+﻿@{
+    ViewBag.Title = "ATSA";
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#DNIAfiliado, #NroAfiliado").ForceNumericOnly();
+    });
+
+    var idEncontrado;
+
+    function ObtenerDatosAfiliado() {
+        var dni = $("#DNIAfiliado").val();
+        var nroAfiliado = $("#NroAfiliado").val();
+
+        if (dni.length == 0 && nroAfiliado.length == 0) {
+            Mensajes.MostrarOK("Debe ingresar DNI o Numero de Afiliado.");
+            return;
+        }
+
+        MostrarCargando();
+        $.ajax({
+            url: 'Home/GetAfiliado',
+            method: 'POST',
+            data: { DNI: dni, Numero: nroAfiliado },
+            dataType: 'json',
+            success: function (data) {
+                OcultarCargando();
+                if (data.success == true) {
+                    if (data.encontrado) {
+                        idEncontrado = data.datos.numeroAfiliado;
+                        console.log(data.datos.id);
+                        console.log(idEncontrado);
+                        $("#Nombre").val(data.datos.nombre);
+                        $("#Apellido").val(data.datos.apellido);
+                        $("#DNI").val(data.datos.dni);
+                        $("#Localidad").val(data.datos.localidad);
+                        $("#Telefono").val(data.datos.telefono);
+                        $("#Direccion").val(data.datos.domicilio);
+                        $("#FechaNacimiento").val(data.datos.fechaNacimiento);
+                        $("#Edad").val(data.datos.edad);
+                        $("#Email").val(data.datos.email);
+                        $("#Estado").val(data.datos.estado);
+                        $("#NroAfiliado").val(data.datos.numeroAfiliado);
+                        $("#Establecimiento").val(data.datos.establecimiento);
+
+                        if (data.datos.sexo == "F") {
+                            $("#chkM").removeAttr("checked");
+                            $("#chkF").attr("checked", "checked");
+                        }
+                        else {
+                            $("#chkF").removeAttr("checked");
+                            $("#chkM").attr("checked", "checked");
+                        }
+
+                        $(".chkEstadoCivil").removeAttr("checked");
+
+                        $(".chkEstadoCivil[value='" + data.datos.estado_civil + "']").attr("checked", "checked");
+
+                        $(".rowFamiliar").html("");
+                        if (data.datos.familiares.length > 0) {
+                            var html = '';
+                            $.each(data.datos.familiares, function (i, familiar) {
+                                html += '<div class="col-xs-1">';
+                                html += '    <center><h3>#' + (i + 1) + '</h3></center>';
+                                html += '</div>';
+                                html += '<div class="col-xs-4">';
+                                html += '    <div class="form-group">';
+                                html += '        <label>Nombre</label>';
+                                html += '        <input type="text" name="FamiliarNombre1" id="FamiliarNombre1" readonly="" value="' + familiar.Nombre + '" class="form-control">';
+                                html += '    </div>';
+                                html += '</div>';
+                                html += '<div class="col-xs-4">';
+                                html += '    <div class="form-group">';
+                                html += '        <label>Apellido</label>';
+                                html += '        <input type="text" name="FamiliarApellido1" id="FamiliarApellido1" readonly="" value="' + familiar.Apellido + '" class="form-control">';
+                                html += '    </div>';
+                                html += '</div>';
+                                html += '<div class="col-xs-3">';
+                                html += '    <div class="form-group">';
+                                html += '        <label>DNI</label>';
+                                html += '        <input type="text" name="FamiliarDNI1" id="FamiliarDNI1" readonly="" value="' + familiar.DNI + '" class="form-control">';
+                                html += '    </div>';
+                                html += '</div>';
+                                $(".rowFamiliar").html(html);
+                            });
+                        } else {
+                            $(".rowFamiliar").html("<center><b style='color: red;'>Sin familiares</b></center>");
+                        }
+                    }
+                    else
+                        Mensajes.MostrarOK("El afiliado debe consultar su Estado en afiliaciones.");
+                }
+                else {
+                    Mensajes.MostrarError(data.error);
+                }
+            }
+        });
+        console.log("despues cuando termina el ajax");
+        console.log(idEncontrado);
+    }
+
+    function seleccionarTipoCupon(tipo) {
+        tipo == '3' ? $('#myModal').modal('show') : crearCupon(tipo);
+    }
+
+    function crearCupon(tipo) {
+
+       
+        //var id = idEncontrado; // produccion
+        var id = 1; //test
+        $.ajax({
+            //url: '/cupones/Home/Grabar', //produccion
+            url: '/Home/Grabar', //test
+           method: 'POST',
+            
+            data: { ID: id },
+            dataType: 'json',
+            success: function (data)
+            {
+                //window.open("/cupones/Home/ImprimirCupon?id=" + id + "&tipo=" + tipo, "_blank"); //produccion
+                //location.href = "/cupones/Home";//produccion
+                window.open("/Home/ImprimirCupon?id=" + id + "&tipo=" + tipo, "_blank"); //test
+                location.href = "/Home";//test
+                Mensajes.MostrarOK("OK.");
+            }
+        });
+    }
+    
+
+</script>
+<br/>
+<div class="col-xs-10 col-xs-offset-1">
+    <div class="row">
+        <div class="col-xs-5">
+            <h3 style="margin-top:0px;">Generador de bonos/cupos</h3>
+        </div>
+        <div class="col-xs-3">
+            <div class="input-group">
+                <span class="input-group-addon">N° Afiliado</span>
+                <input type="text" class="form-control" aria-label="" id="NroAfiliado" name="NroAfiliado">
+            </div>
+        </div>
+        <div class="col-xs-3">
+            <div class="input-group">
+                <span class="input-group-addon">DNI</span>
+                <input type="text" class="form-control" aria-label="" id="DNIAfiliado" name="DNIAfiliado">
+            </div>
+        </div>
+        <div class="col-xs-1">
+            <button class="btn btn-success2" onclick="ObtenerDatosAfiliado()" style="width:100%;"><center><span class="glyphicon glyphicon-search"></span></center></button>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-xs-3">
+            <div class="form-group">
+                <label>Nombre</label>
+                <input type="text" name="Nombre" id="Nombre" readonly="" class="form-control">
+            </div>
+        </div>
+        <div class="col-xs-3">
+            <div class="form-group">
+                <label>Apellido</label>
+                <input type="text" name="Apellido" id="Apellido" readonly="" class="form-control">
+            </div>
+        </div>
+        <div class="col-xs-3">
+            <div class="form-group">
+                <label>DNI</label>
+                <input type="text" name="DNI" id="DNI" readonly="" class="form-control">
+            </div>
+        </div>
+        <div class="col-xs-1">
+            <div class="form-group">
+                <label>Edad</label>
+                <input type="text" name="Edad" id="Edad" readonly="" class="form-control">
+            </div>
+        </div>
+        <div class="col-xs-2">
+            <div class="form-group">
+                <label>Fecha de nacimiento</label>
+                <input type="text" name="FechaNacimiento" id="FechaNacimiento" class="form-control" readonly="" value="">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-3">
+            <div class="form-group">
+                <label>Estado</label>
+                <input type="text" name="Estado" id="Estado" readonly="" class="form-control">
+            </div>
+        </div>
+        <div class="col-xs-3">
+            <div class="form-group">
+                <label>Dirección</label>
+                <input type="text" name="Direccion" id="Direccion" readonly="" class="form-control">
+            </div>
+        </div>
+        <div class="col-xs-3">
+            <div class="form-group">
+                <label>Localidad</label>
+                <input type="text" name="Localidad" id="Localidad" readonly="" class="form-control">
+            </div>
+        </div>
+        <div class="col-xs-3">
+            <div class="input-group">
+                <span class="input-group-addon">Sexo</span>
+                <div class="form-control">
+                    <input type="checkbox" id="chkM" class="chkSexo" value="M" disabled="disabled" style="float:left;"><label style="float:left; margin-left:5px;"><b>M</b></label>
+                    <input type="checkbox" id="chkF" class="chkSexo" value="F" disabled="disabled" style="float:left; margin-left:20px;"><label style="float:left; margin-left:5px;"><b>F</b></label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-1">
+            <center>
+                <p>
+                    Seguro Prosam
+                </p>
+            </center>
+            <button class="btn btn-success" onclick="crearCupon('1')" style="width:100%;">
+                <center>
+                    <span class="glyphicon glyphicon-plus-sign"></span>
+                </center>
+            </button>
+        </div>
+        <div class="col-xs-1">
+            <center>
+                <p>
+                    Seguro Cepro
+                </p>
+            </center>
+            <button class="btn btn-success" onclick="crearCupon('2')" style="width:100%;"><center><span class="glyphicon glyphicon-plus-sign"></span></center></button>
+        </div>
+        <div class="col-xs-1">
+            <center>
+                <p>
+                    Médicos de cabecera
+                </p>
+            </center>
+            <button class="btn btn-success" onclick="seleccionarTipoCupon('3')" style="width:100%;"><center><span class="glyphicon glyphicon-plus-sign"></span></center></button>
+        </div>
+    </div>
+
+    <hr>
+    <!-- <h4>Grupo Familiar</h4>
+
+     <div class="row rowFamiliar">
+         <center><b>Primero busque un afiliado</b></center>
+     </div>
+        -->
+
+</div>
+
+@*MODAL*@
+<div id="myModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Seleccione Medico de Cabecera</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="crearCupon('3A')">Consultorio San Miguel</button>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="crearCupon('3B')">Dra. Jativa Sambrano</button>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="crearCupon('3C')">Red de Oftalmologia</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

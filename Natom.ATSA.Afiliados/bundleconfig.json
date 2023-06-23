@@ -1,0 +1,224 @@
+[
+  {
+    "outputFileName": "Resources/css/general.min.css",
+    "inputFiles": [
+      "Resources/css/general.css"
+    ]
+  },
+  {
+    "outputFileName": "Resources/css/Home/login.min.css",
+    "inputFiles": [
+      "Resources/css/Home/login.css"
+    ]
+  },
+  {
+    "outputFileName": "Resources/js/MotivosFaltaPago/create.min.js",
+    "inputFiles": [
+      "Resources/js/MotivosFaltaPago/create.js"
+    ]
+  },
+  {
+    "outputFileName": "Resources/js/general.min.js",
+    "inputFiles": [
+      "Resources/js/general.js"
+    ]
+  },
+  {
+    "outputFileName": "Resources/js/MotivosFaltaPago/edit.min.js",
+    "inputFiles": [
+      "Resources/js/MotivosFaltaPago/edit.js"
+    ]
+  },
+  {
+    "outputFileName": "Resources/js/MotivosFaltaPago/index.min.js",
+    "inputFiles": [
+      "Resources/js/MotivosFaltaPago/index.js"
+    ]
+  },
+  {
+    "outputFileName": "Resources/js/Establecimientos/index.min.js",
+    "inputFiles": [
+      "Resources/js/Establecimientos/index.js"
+    ]
+  },
+  {
+    "outputFileName": "Resources/js/Establecimientos/create.min.js",
+    "inputFiles": [
+      "Resources/js/Establecimientos/create.js"
+    ]
+  },
+  {
+    "outputFileName": "Resources/js/Establecimientos/edit.min.js",
+    "inputFiles": [
+      "Resources/js/Establecimientos/edit.js"
+    ]
+  },
+  {
+    "outputFileName": "Resources/js/Liquidaciones/index.min.js",
+    "inputFiles": [
+      "Resources/js/Liquidaciones/index.js"
+    ]
+  },
+  {
+    "outputFileName": "Resources/js/Liquidaciones/create.min.js",
+    "inputFiles": [
+      "Resources/js/Liquidaciones/create.js"
+    ]
+  },
+  {
+    "outputFileName": "Resources/js/Liquidaciones/edit.min.js",
+    "inputFiles": [
+      "Resources/js/Liquidaciones/edit.js"
+    ]
+  },
+  {
+    "outputFileName": "Resources/js/Liquidaciones/liquidaciones.min.js",
+    "inputFiles": [
+      "Resources/js/Liquidaciones/liquidaciones.js"
+    ]
+  },
+  {
+    "outputFileName": "Resources/js/Liquidaciones/imprimirReporte.min.js",
+    "inputFiles": [
+      "Resources/js/Liquidaciones/imprimirReporte.js"
+    ]
+  },
+  {
+    "outputFileName": "Resources/js/Usuarios/index.min.js",
+    "inputFiles": [
+      "Resources/js/Usuarios/index.js"
+    ]
+  },
+  {
+    "outputFileName": "Resources/js/Usuarios/create.min.js",
+    "inputFiles": [
+      "Resources/js/Usuarios/create.js"
+    ]
+  },
+  {
+    "outputFileName": "Resources/js/Usuarios/edit.min.js",
+    "inputFiles": [
+      "Resources/js/Usuarios/edit.js"
+    ]
+  },
+  {
+    "outputFileName": "Resources/js/Hijo/create.min.js",
+    "inputFiles": [
+      "Resources/js/Hijo/create.js"
+    ]
+  },
+  {
+    "outputFileName": "Resources/js/Hijo/edit.min.js",
+    "inputFiles": [
+      "Resources/js/Hijo/edit.js"
+    ]
+  },
+  {
+    "outputFileName": "Resources/js/Hijo/index.min.js",
+    "inputFiles": [
+      "Resources/js/Hijo/index.js"
+    ]
+  },
+  {
+    "outputFileName": "Resources/js/Certificado/create.min.js",
+    "inputFiles": [
+      "Resources/js/Certificado/create.js"
+    ]
+  },
+  {
+    "outputFileName": "Resources/js/Certificado/edit.min.js",
+    "inputFiles": [
+      "Resources/js/Certificado/edit.js"
+    ]
+  },
+  {
+    "outputFileName": "Resources/js/Certificado/index.min.js",
+    "inputFiles": [
+      "Resources/js/Certificado/index.js"
+    ]
+  },
+  {
+    "outputFileName": "Resources/js/Liquidacion/create.min.js",
+    "inputFiles": [
+      "Resources/js/Liquidacion/create.js"
+    ]
+  },
+  {
+    "outputFileName": "Resources/js/Liquidacion/edit.min.js",
+    "inputFiles": [
+      "Resources/js/Liquidacion/edit.js"
+    ]
+  },
+  {
+    "outputFileName": "Resources/js/Liquidacion/index.min.js",
+    "inputFiles": [
+      "Resources/js/Liquidacion/index.js"
+    ]
+  },
+  {
+    "outputFileName": "Resources/js/Configuracion/index.min.js",
+    "inputFiles": [
+      "Resources/js/Configuracion/index.js"
+    ]
+  },
+  {
+    "outputFileName": "Resources/js/Liquidacion/edit2.min.js",
+    "inputFiles": [
+      "Resources/js/Liquidacion/edit2.js"
+    ]
+  },
+  {
+    "outputFileName": "Resources/js/SubsidioPorReservaDePuesto/create.min.js",
+    "inputFiles": [
+      "Resources/js/SubsidioPorReservaDePuesto/create.js"
+    ]
+  },
+  {
+    "outputFileName": "Resources/js/SubsidioPorReservaDePuesto/edit.min.js",
+    "inputFiles": [
+      "Resources/js/SubsidioPorReservaDePuesto/edit.js"
+    ]
+  },
+  {
+    "outputFileName": "Resources/js/SubsidioPorReservaDePuesto/index.min.js",
+    "inputFiles": [
+      "Resources/js/SubsidioPorReservaDePuesto/index.js"
+    ]
+  },
+  {
+    "outputFileName": "Resources/js/SubsidioPorEnfermedadFamiliar/index.min.js",
+    "inputFiles": [
+      "Resources/js/SubsidioPorEnfermedadFamiliar/index.js"
+    ]
+  },
+  {
+    "outputFileName": "Resources/js/SubsidioPorEnfermedadFamiliar/edit.min.js",
+    "inputFiles": [
+      "Resources/js/SubsidioPorEnfermedadFamiliar/edit.js"
+    ]
+  },
+  {
+    "outputFileName": "Resources/js/SubsidioPorEnfermedadFamiliar/create.min.js",
+    "inputFiles": [
+      "Resources/js/SubsidioPorEnfermedadFamiliar/create.js"
+    ]
+  },
+  {
+    "outputFileName": "Resources/js/APBBioquimicos/index.min.js",
+    "inputFiles": [
+      "Resources/js/APBBioquimicos/index.js"
+    ]
+  },
+  {
+    "outputFileName": "Resources/js/APBBioquimicos/edit.min.js",
+    "inputFiles": [
+      "Resources/js/APBBioquimicos/edit.js"
+    ]
+  },
+  {
+    "outputFileName": "Resources/js/APBBioquimicos/create.min.js",
+    "inputFiles": [
+      "Resources/js/APBBioquimicos/create.js"
+    ]
+  }
+]

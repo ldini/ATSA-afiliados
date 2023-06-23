@@ -1,0 +1,50 @@
+﻿@using Natom.ATSA.Afiliados.Models;
+@using Natom.ATSA.Afiliados.Managers;
+
+@if (Request.Cookies["ATSAConafWebApp"] != null)
+{
+    int usuarioId = Convert.ToInt32(Request.Cookies["ATSAConafWebApp"].Value);
+    Usuario usuario = new UsuarioManager().ObtenerUsuario(usuarioId);
+<ul class="nav navbar-nav">
+    @if (usuario.EsAdmin)
+    {
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;&nbsp;ABM <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                <li><a href="/cupones/Usuarios">Usuarios</a></li>
+            </ul>
+        </li>
+    }
+    @*<li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;Afiliados <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                <li><a href="~/Hijo">Hijos</a></li>
+                <li><a href="~/Hijo/Create">Nuevo hijo</a></li>
+                <li class="divider"></li>
+                <li><a href="~/Certificado">Certificados</a></li>
+                <li><a href="~/Certificado/Create">Nuevo certificado</a></li>
+            </ul>
+        </li>*@
+    @*<li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding-top: 9px; padding-bottom: 11px; line-height: 15px;">Subsidios por<br />capacidades diferentes <span style="margin-top: -13px;" class="caret"></span></a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+            <li><a href="/Liquidacion">Liquidaciones</a></li>
+            <li><a href="/Liquidacion/Create">Nueva liquidación</a></li>
+        </ul>
+    </li>*@
+</ul>
+    <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown dropdown-user">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                &nbsp;<span class="caret"></span>
+                <div class="userData">
+                    <span class="userName">@usuario.NombreApellido</span>
+                    <span class="bizName">ATSA</span>
+                </div>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="/cupones/Home/Logout">Salir del sistema</a></li>
+            </ul>
+        </li>
+    </ul>
+}
