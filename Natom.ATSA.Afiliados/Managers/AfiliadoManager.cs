@@ -100,8 +100,8 @@ namespace Natom.ATSA.Afiliados.Managers
 
                 ReportViewer viewer = new ReportViewer();
                 viewer.ProcessingMode = ProcessingMode.Local;
-                viewer.LocalReport.ReportPath = System.Web.HttpContext.Current.Server.MapPath("/Reporting/Report" + tipo + ".rdlc");   //test
-                //viewer.LocalReport.ReportPath = System.Web.HttpContext.Current.Server.MapPath("/cupones/Reporting/Report" + tipo +".rdlc");   //produccion
+                //viewer.LocalReport.ReportPath = System.Web.HttpContext.Current.Server.MapPath("/Reporting/Report" + tipo + ".rdlc");   //test
+                viewer.LocalReport.ReportPath = System.Web.HttpContext.Current.Server.MapPath("/cupones/Reporting/Report" + tipo + ".rdlc");   //produccion
                 viewer.LocalReport.EnableExternalImages = true;
                 viewer.LocalReport.DataSources.Add(new ReportDataSource("DataSet1", reportData));
 

@@ -106,21 +106,21 @@
     function crearCupon(tipo) {
 
        
-        //var id = idEncontrado; // produccion
-        var id = 1; //test
+        var id = idEncontrado; // produccion
+        //var id = 1; //test
         $.ajax({
-            //url: '/cupones/Home/Grabar', //produccion
-            url: '/Home/Grabar', //test
+            url: '/cupones/Home/Grabar', //produccion
+            //url: '/Home/Grabar', //test
            method: 'POST',
             
             data: { ID: id },
             dataType: 'json',
             success: function (data)
             {
-                //window.open("/cupones/Home/ImprimirCupon?id=" + id + "&tipo=" + tipo, "_blank"); //produccion
-                //location.href = "/cupones/Home";//produccion
-                window.open("/Home/ImprimirCupon?id=" + id + "&tipo=" + tipo, "_blank"); //test
-                location.href = "/Home";//test
+                window.open("/cupones/Home/ImprimirCupon?id=" + id + "&tipo=" + tipo, "_blank"); //produccion
+                location.href = "/cupones/Home";//produccion
+                //window.open("/Home/ImprimirCupon?id=" + id + "&tipo=" + tipo, "_blank"); //test
+                //location.href = "/Home";//test
                 Mensajes.MostrarOK("OK.");
             }
         });
