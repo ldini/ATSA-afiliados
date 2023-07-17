@@ -7,6 +7,7 @@ using System.Linq;
 using Microsoft.Reporting.WebForms;
 using System.Data.Entity;
 using System.Web;
+using System.Globalization;
 
 namespace Natom.ATSA.Afiliados.Managers
 {
@@ -69,10 +70,14 @@ namespace Natom.ATSA.Afiliados.Managers
                 var data = this.ObtenerCupones(id);
                 var reportData = new List<CuponesResult>();
                 var persona = this.db.Personas.FirstOrDefault(p => (p.NUMERO_AFILIADO.Equals(id.ToString()))); // /*|| p.DOCUMENTO.Equals(dni)*/) && (p.ESTADO_ID == 2 || p.ESTADO_ID == 4)); //2: AFILIADO || 4: JUBILADO
+
+                CultureInfo culture = new CultureInfo("es-ES");
+                System.Threading.Thread.CurrentThread.CurrentCulture = culture;
+
                 reportData.Add(new CuponesResult
                 {
-                    
-                    CuponId = 1,
+                
+                CuponId = 1,
                     CuponAfiliadoNombre = persona.NOMBRES, //data.CuponAfiliadoNombre,
                     CuponAfiliadoApellido = persona.APELLIDOS, //data.CuponAfiliadoApellido,
                     CuponAfiliadoNro = persona.NUMERO_AFILIADO, //data.CuponAfiliadoNro,
