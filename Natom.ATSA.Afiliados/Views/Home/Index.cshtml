@@ -7,6 +7,7 @@
     });
 
     var idEncontrado;
+    var data_afiliado;
 
     function ObtenerDatosAfiliado() {
         var dni = $("#DNIAfiliado").val();
@@ -27,6 +28,8 @@
                 OcultarCargando();
                 if (data.success == true) {
                     if (data.encontrado) {
+                        data_afiliado = data.datos;
+                        console.log(data_afiliado);
                         idEncontrado = data.datos.numeroAfiliado;
                         console.log(data.datos.id);
                         console.log(idEncontrado);
@@ -103,32 +106,34 @@
         tipo == '3' ? $('#myModal').modal('show') : crearCupon(tipo);
     }
 
-    function crearCupon(tipo) {
+    function crearCupon(tipo,cantidad) {
 
-       
-        var id = idEncontrado; // produccion
-        //var id = 1; //test
+        var id = idEncontrado; 
         $.ajax({
             url: '/cupones/Home/Grabar', //produccion
-            //url: '/Home/Grabar', //test
-           method: 'POST',
-            
-            data: { ID: id },
+            /*url: '/Home/Grabar', //test*/
+            method: 'POST',
+
+            data: {
+                afiliado_id: id,
+                afiliado_nombre: data_afiliado.nombre,
+                afiliado_apellido: data_afiliado.apellido,
+                cupon_cantidad : cantidad
+            },
             dataType: 'json',
-            success: function (data)
-            {
-                window.open("/cupones/Home/ImprimirCupon?id=" + id + "&tipo=" + tipo, "_blank"); //produccion
-                location.href = "/cupones/Home";//produccion
-                //window.open("/Home/ImprimirCupon?id=" + id + "&tipo=" + tipo, "_blank"); //test
+            success: function (data) {
+                window.open("/cupones/Home/ImprimirCupon?id=" + id + "&tipo=" + tipo + "&cantidad=" + cantidad, "_blank"); //produccion
+                location.href = "/cupones/Home"; //produccion
+                //window.open("/Home/ImprimirCupon?id=" + id + "&tipo=" + tipo + "&cantidad=" + cantidad, "_blank"); //test
                 //location.href = "/Home";//test
                 Mensajes.MostrarOK("OK.");
             }
         });
     }
-    
+
 
 </script>
-<br/>
+<br />
 <div class="col-xs-10 col-xs-offset-1">
     <div class="row">
         <div class="col-xs-5">
@@ -213,14 +218,14 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row" style=" display: flex; align-items: flex-end;">
         <div class="col-xs-1">
             <center>
                 <p>
                     Seguro Prosam
                 </p>
             </center>
-            <button class="btn btn-success" onclick="crearCupon('1')" style="width:100%;">
+            <button class="btn btn-success" onclick="abrirModalCantidad('1')" style="width:100%;">
                 <center>
                     <span class="glyphicon glyphicon-plus-sign"></span>
                 </center>
@@ -232,12 +237,12 @@
                     Seguro Cepro
                 </p>
             </center>
-            <button class="btn btn-success" onclick="crearCupon('2')" style="width:100%;"><center><span class="glyphicon glyphicon-plus-sign"></span></center></button>
+            <button class="btn btn-success" onclick="abrirModalCantidad('2')" style="width:100%;"><center><span class="glyphicon glyphicon-plus-sign"></span></center></button>
         </div>
         <div class="col-xs-1">
             <center>
                 <p>
-                    Médicos de cabecera
+                    Méd. de cabecera
                 </p>
             </center>
             <button class="btn btn-success" onclick="seleccionarTipoCupon('3')" style="width:100%;"><center><span class="glyphicon glyphicon-plus-sign"></span></center></button>
@@ -253,8 +258,6 @@
         -->
 
 </div>
-
-@*MODAL*@
 <div id="myModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -264,13 +267,13 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <button type="button" class="btn btn-primary btn-block" data-dismiss="modal" onclick="crearCupon('3A')">Consultorio San Miguel</button>
+                        <button type="button" class="btn btn-primary btn-block" data-dismiss="modal" onclick="abrirModalCantidad('3A')">Consultorio San Miguel</button>
                     </div>
                     <div class="form-group">
-                        <button type="button" class="btn btn-primary btn-block" data-dismiss="modal" onclick="crearCupon('3B')">Dra. Jativa Sambrano</button>
+                        <button type="button" class="btn btn-primary btn-block" data-dismiss="modal" onclick="abrirModalCantidad('3B')">Dra. Jativa Sambrano</button>
                     </div>
                     <div class="form-group">
-                        <button type="button" class="btn btn-primary btn-block" data-dismiss="modal" onclick="crearCupon('3C')">Red de Oftalmología</button>
+                        <button type="button" class="btn btn-primary btn-block" data-dismiss="modal" onclick="abrirModalCantidad('3C')">Red de Oftalmología</button>
                     </div>
                 </form>
             </div>
@@ -280,5 +283,79 @@
         </div>
     </div>
 </div>
+
+<!-- Nuevo modal más pequeño para ingresar cantidad -->
+<div id="modalCantidad" class="modal fade">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-center mb-0">Cantidad de Bonos</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <!-- Controles para subir y bajar cantidad en el nuevo modal -->
+                    <div class="form-group">
+                       
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-sm btn-secondary" onclick="restarCantidad()">-</button>
+                            </span>
+                            <input type="number" id="cantidad" class="form-control text-center" value="1" min="1" onkeydown="validarEntrada(event)">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-sm btn-secondary" onclick="sumarCantidad()">+</button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="actualizarCantidad()">Imprimir</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function abrirModalCantidad(tipo) {
+        // Establecer el tipo seleccionado en el nuevo modal
+        $('#cantidad').data('tipo', tipo);
+
+        // Mostrar el nuevo modal
+        $('#modalCantidad').modal('show');
+    }
+
+    function sumarCantidad() {
+        var inputCantidad = document.getElementById('cantidad');
+        var valorCantidad = parseInt(inputCantidad.value, 10);
+        inputCantidad.value = valorCantidad + 1;
+    }
+
+    function restarCantidad() {
+        var inputCantidad = document.getElementById('cantidad');
+        var valorCantidad = parseInt(inputCantidad.value, 10);
+        if (valorCantidad > 1) {
+            inputCantidad.value = valorCantidad - 1;
+        }
+    }
+
+    function actualizarCantidad() {
+        var nuevaCantidad = parseInt($('#cantidad').val(), 10);
+        if (!isNaN(nuevaCantidad) && nuevaCantidad >= 1) {
+            var tipo = $('#cantidad').data('tipo');
+            crearCupon(tipo, nuevaCantidad);
+        }
+        $('#modalCantidad').modal('hide');
+    }
+
+    function validarEntrada(event) {
+        if (event.key < '0' || event.key > '9') {
+            event.preventDefault();
+        }
+    }
+</script>
+
+
+
 
 

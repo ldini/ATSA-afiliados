@@ -18,5 +18,7 @@ namespace Natom.ATSA.Afiliados.Models
         public string CuponFechaGeneracion { get; set; }
         public string CuponCodigoPrestacion { get; set; }
         public string CuponCodigoPrestador { get; set; }
+        public string CuponCantidad { get; set; }
     }
 }
+    

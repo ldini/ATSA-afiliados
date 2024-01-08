@@ -479,7 +479,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>    FILIAL MORÓN S/CARGO                       CANTIDAD: 1</Value>
+					  <Value>="FILIAL MORÓN S/CARGO                       CANTIDAD: "+First(Fields!CuponCantidad.Value, "DataSet1")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -667,7 +667,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>       CANTIDAD:          1</Value>
+					  <Value>="       CANTIDAD: "+First(Fields!CuponCantidad.Value, "DataSet1")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -1167,6 +1167,10 @@
           <DataField>CuponCodigoPrestador</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+		<Field Name="CuponCantidad">
+			<DataField>CuponCantidad</DataField>
+			<rd:TypeName>System.String</rd:TypeName>
+		</Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>DataSet1</rd:DataSetName>

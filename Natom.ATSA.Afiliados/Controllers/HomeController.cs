@@ -87,12 +87,50 @@ namespace Natom.ATSA.Afiliados.Controllers
             return View();
         }
 
+        //[HttpPost]
+        //public ActionResult Grabar(int id)
+        //{
+        //    try
+        //    {
+        //        return Json(new { id = 1 });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Json(new { success = false, error = ex.Message });
+        //    }
+        //}
+
         [HttpPost]
-        public ActionResult Grabar(int id)
+        public ActionResult Grabar(string afiliado_id, string afiliado_nombre, string afiliado_apellido, string cupon_cantidad)
         {
             try
             {
-                return Json(new { id = 1 });
+                // Crear una instancia del contexto de base de datos
+                using (var context = new DbAfiliadosContext())
+                {
+                    // Crear una entidad de Cupon y establecer sus propiedades con los datos recibidos
+                    var cupon = new Cupones
+                    {
+                        //CuponId = id,
+                        CuponAfiliadoNro = afiliado_id,
+                        CuponAfiliadoNombre = afiliado_nombre,
+                        CuponAfiliadoApellido = afiliado_apellido,
+                        CuponCantidad = cupon_cantidad,
+                        CuponOrdenNro = "",
+                        CuponFechaGeneracion = DateTime.Now.ToString(),
+                        CuponCodigoPrestacion = "",
+                        CuponCodigoPrestador = ""
+                    };
+
+                    // Agregar la entidad al contexto
+                    context.Cupones.Add(cupon);
+
+                    // Guardar los cambios en la base de datos
+                    context.SaveChanges();
+
+                    // Puedes devolver algún tipo de respuesta al cliente si es necesario
+                    return Json(new { success = true });
+                }
             }
             catch (Exception ex)
             {
@@ -101,10 +139,10 @@ namespace Natom.ATSA.Afiliados.Controllers
         }
 
         [HttpGet]
-        public ActionResult ImprimirCupon(int id, string tipo)
+        public ActionResult ImprimirCupon(int id, string tipo,string cantidad)
         {
             var afiliadoManager = new AfiliadoManager();
-            byte[] b = afiliadoManager.GenerarImprimirReciboPDFEnBytes(id,tipo);
+            byte[] b = afiliadoManager.GenerarImprimirReciboPDFEnBytes(id,tipo,cantidad);
             //return File(b, "application/pdf");
 
             if (b != null)
