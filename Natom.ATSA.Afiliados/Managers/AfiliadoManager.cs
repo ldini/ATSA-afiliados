@@ -48,7 +48,7 @@ namespace Natom.ATSA.Afiliados.Managers
             //return this.db.Cupones.Where(x => x.CuponAfiliadoNro == id.ToString()).FirstOrDefault();
         }
 
-        public byte[] GenerarImprimirReciboPDFEnBytes(int id, string tipo,string cantidad)
+        public byte[] GenerarImprimirReciboPDFEnBytes(int id, string tipo,string cantidad,string nroOrden)
         {
             string tipoCupon = "";
             switch (tipo)
@@ -81,7 +81,7 @@ namespace Natom.ATSA.Afiliados.Managers
                     CuponAfiliadoNombre = persona.NOMBRES, //data.CuponAfiliadoNombre,
                     CuponAfiliadoApellido = persona.APELLIDOS, //data.CuponAfiliadoApellido,
                     CuponAfiliadoNro = persona.NUMERO_AFILIADO, //data.CuponAfiliadoNro,
-                    CuponOrdenNro = "1",
+                    CuponOrdenNro = nroOrden,
                     CuponFechaGeneracion = DateTime.Now.ToLongDateString(),
                     CuponCodigoPrestacion = "",
                     CuponCodigoPrestador = tipoCupon,

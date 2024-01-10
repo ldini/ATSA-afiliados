@@ -129,7 +129,7 @@ namespace Natom.ATSA.Afiliados.Controllers
                     context.SaveChanges();
 
                     // Puedes devolver algún tipo de respuesta al cliente si es necesario
-                    return Json(new { success = true });
+                    return Json(new { success = true, id = cupon.CuponId });
                 }
             }
             catch (Exception ex)
@@ -139,10 +139,10 @@ namespace Natom.ATSA.Afiliados.Controllers
         }
 
         [HttpGet]
-        public ActionResult ImprimirCupon(int id, string tipo,string cantidad)
+        public ActionResult ImprimirCupon(int id, string tipo,string cantidad,string nroOrden)
         {
             var afiliadoManager = new AfiliadoManager();
-            byte[] b = afiliadoManager.GenerarImprimirReciboPDFEnBytes(id,tipo,cantidad);
+            byte[] b = afiliadoManager.GenerarImprimirReciboPDFEnBytes(id,tipo,cantidad,nroOrden);
             //return File(b, "application/pdf");
 
             if (b != null)
